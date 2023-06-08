@@ -26,7 +26,7 @@ namespace BuildingBlocks.Domain.Entities
             Id = id;
         }
 
-        public void Publish(TDomainEvent domainEvent)
+        protected void Publish(TDomainEvent domainEvent)
         {
             if (domainEvent is null)
             {
@@ -36,7 +36,7 @@ namespace BuildingBlocks.Domain.Entities
             _domainEvents.Add(domainEvent);
         }
 
-        public void ClearDomainEvents() => _domainEvents.Clear();
+        internal void ClearDomainEvents() => _domainEvents.Clear();
 
         protected void CheckRule(IBusinessOperationRule rule)
         {

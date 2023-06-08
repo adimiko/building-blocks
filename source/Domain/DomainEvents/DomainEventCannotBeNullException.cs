@@ -1,6 +1,4 @@
-﻿using BuildingBlocks.Domain.DomainEvents;
-
-namespace BuildingBlocks.Domain.Entities
+﻿namespace BuildingBlocks.Domain.DomainEvents
 {
     public sealed class DomainEventCannotBeNullException<TDomainEvent> : BuildingBlocksDomainException
         where TDomainEvent : DomainEvent

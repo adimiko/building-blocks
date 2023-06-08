@@ -31,7 +31,7 @@ namespace BuildingBlocks.Domain.AggregateRoots
         {
             if (_isVersionIncrementing)
             {
-                throw new ConcurrencyException($"{GetType().Name} with id '{Id}' was updated by another process");
+                throw new ConcurrencyException($"{GetType().Name} with id '{Id}' is updating by another process");
             }
         }
     }

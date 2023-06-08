@@ -12,7 +12,7 @@ namespace BuildingBlocks.Domain.Entities
 
         private List<TDomainEvent> _domainEvents = new List<TDomainEvent>();
 
-        public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents;
+        public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
         protected Entity() { }
 

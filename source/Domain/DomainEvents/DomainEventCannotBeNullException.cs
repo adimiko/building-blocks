@@ -1,6 +1,6 @@
 ﻿namespace BuildingBlocks.Domain.DomainEvents
 {
-    public sealed class DomainEventCannotBeNullException<TDomainEvent> : BuildingBlocksDomainException
+    internal sealed class DomainEventCannotBeNullException<TDomainEvent> : BuildingBlocksDomainException
         where TDomainEvent : DomainEvent
     {
         internal DomainEventCannotBeNullException()

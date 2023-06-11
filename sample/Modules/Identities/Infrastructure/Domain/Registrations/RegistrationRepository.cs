@@ -17,5 +17,10 @@ namespace Identities.Infrastructure.Domain.Registrations
         {
             await _registrations.AddAsync(registration);
         }
+
+        public async Task<Registration?> Get(RegistrationId id)
+        {
+            return await _registrations.FindAsync(id);
+        }
     }
 }

@@ -4,10 +4,10 @@ namespace BuildingBlocks.Startup.Modules
 {
     public interface IModuleSettings
     {
-        Assembly Domain { get; }
+        Assembly DomainLayer { get; }
 
-        Assembly Application { get; }
+        Assembly ApplicationLayer { get; }
 
-        Assembly Infrastructure { get; }
+        Assembly InfrastructureLayer { get; }
     }
 }

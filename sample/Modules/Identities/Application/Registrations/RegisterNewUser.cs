@@ -27,7 +27,6 @@ namespace Identities.Application.Registrations
 
         public async Task Handle(RegisterNewUserCommand command, CancellationToken cancellationToken)
         {
-
             var login = Login.Of(command.Login, _uniqueLogin);
             var password = Password.Of(command.Password, plainPassword => _hasher.CalculateHash(plainPassword));
 

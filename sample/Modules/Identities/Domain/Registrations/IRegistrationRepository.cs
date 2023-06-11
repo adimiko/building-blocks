@@ -1,9 +1,9 @@
-﻿using Identities.Domain.Registrations;
-
-namespace Identities.Application.Registrations
+﻿namespace Identities.Domain.Registrations
 {
     public interface IRegistrationRepository
     {
+        Task<Registration?> Get(RegistrationId id);
+
         Task Add(Registration registration);
     }
 }

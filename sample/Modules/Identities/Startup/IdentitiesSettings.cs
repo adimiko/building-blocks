@@ -8,10 +8,10 @@ namespace Identities.Startup
 {
     public sealed class IdentitiesSettings : IModuleSettings
     {
-        public Assembly Domain => DomainAssembly.Assembly;
+        public Assembly DomainLayer => DomainAssembly.Assembly;
 
-        public Assembly Application => ApplicationAssembly.Assembly;
+        public Assembly ApplicationLayer => ApplicationAssembly.Assembly;
 
-        public Assembly Infrastructure => InfrastructureAssembly.Assembly;
+        public Assembly InfrastructureLayer => InfrastructureAssembly.Assembly;
     }
 }

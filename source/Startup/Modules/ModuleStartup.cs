@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Infrastructure;
+using BuildingBlocks.Startup.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -18,18 +19,11 @@ namespace BuildingBlocks.Startup.Modules
 
             var builder = ConfigureContainer(new ServiceCollection(), moduleSettings);
 
-            builder.AddDbContextPool<TDbContext>(options => options.UseInMemoryDatabase("123"));
-            builder.AddScoped((Func<IServiceProvider, DbContext>)(sp => sp.GetRequiredService<TDbContext>()));
-
-
+            builder.AddApplicationDependencies(moduleSettings.ApplicationLayer);
             //TODO
-            builder.AddMediatR(config => config.RegisterServicesFromAssembly(moduleSettings.Application));
-
-            builder.Scan(scan => scan
-              .FromAssemblies(moduleSettings.Infrastructure)
-              .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Repository")))
-              .AsImplementedInterfaces()
-              .WithTransientLifetime());
+            builder.AddInfrastructureDependencies<TDbContext>(moduleSettings.InfrastructureLayer, x => x.UseInMemoryDatabase("123"));
+            
+            builder.AddMediatR(config => config.RegisterServicesFromAssembly(moduleSettings.ApplicationLayer));
 
             IServiceProvider container = builder.BuildServiceProvider();
 

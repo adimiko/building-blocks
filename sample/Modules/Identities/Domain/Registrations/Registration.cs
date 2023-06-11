@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Domain.AggregateRoots;
+using Identities.Domain.Credentials;
 using Identities.Domain.Registrations.DomainEvents;
 using Identities.Domain.SheredKernel.Logins;
 using Identities.Domain.SheredKernel.Passwords;
@@ -12,6 +13,10 @@ namespace Identities.Domain.Registrations
         private Password _password;
 
         private RegistrationStatus _status;
+
+        // first name
+        // last name
+        // etc
 
         public static Registration RegisterNewUser(Login login, Password password)
         {
@@ -28,5 +33,12 @@ namespace Identities.Domain.Registrations
 
             _status = RegistrationStatus.Pending;
         }
+
+        public Credential CreateCredentialBasedOnRegistration()
+        {
+            return Credential.CreateCredentialBasedOnRegistration(Id.CreateCredentailId(),_login, _password);
+        }
+
+        // Create user profile
     }
 }

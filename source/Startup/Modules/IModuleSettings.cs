@@ -1,4 +1,13 @@
-﻿namespace BuildingBlocks.Startup.Modules
+﻿using System.Reflection;
+
+namespace BuildingBlocks.Startup.Modules
 {
-    public interface IModuleSettings { }
+    public interface IModuleSettings
+    {
+        Assembly Domain { get; }
+
+        Assembly Application { get; }
+
+        Assembly Infrastructure { get; }
+    }
 }

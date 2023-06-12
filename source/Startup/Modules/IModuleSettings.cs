@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace BuildingBlocks.Startup.Modules
 {
@@ -9,5 +10,7 @@ namespace BuildingBlocks.Startup.Modules
         Assembly ApplicationLayer { get; }
 
         Assembly InfrastructureLayer { get; }
+
+        Action<DbContextOptionsBuilder> DbContextOptionsBuilder { get; set; }
     }
 }

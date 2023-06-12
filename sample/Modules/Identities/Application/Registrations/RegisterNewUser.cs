@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Application.Commands;
+using Identities.Application.SeedWorks;
 using Identities.Domain.Registrations;
 using Identities.Domain.SheredKernel.Logins;
 using Identities.Domain.SheredKernel.Passwords;

@@ -1,5 +1,4 @@
-﻿using Identities.Application.Registrations;
-using Identities.Domain.Registrations;
+﻿using Identities.Domain.Registrations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Identities.Infrastructure.Domain.Registrations

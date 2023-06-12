@@ -1,4 +1,4 @@
-﻿namespace Identities.Application.Registrations
+﻿namespace Identities.Application.SeedWorks
 {
     public interface IHasher
     {

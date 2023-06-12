@@ -2,6 +2,7 @@
 using Identities.Application;
 using Identities.Domain;
 using Identities.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Identities.Startup
@@ -13,5 +14,7 @@ namespace Identities.Startup
         public Assembly ApplicationLayer => ApplicationAssembly.Assembly;
 
         public Assembly InfrastructureLayer => InfrastructureAssembly.Assembly;
+
+        public Action<DbContextOptionsBuilder> DbContextOptionsBuilder { get; set; }
     }
 }

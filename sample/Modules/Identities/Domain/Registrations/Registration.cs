@@ -14,10 +14,6 @@ namespace Identities.Domain.Registrations
 
         private RegistrationStatus _status;
 
-        // first name
-        // last name
-        // etc
-
         public static Registration RegisterNewUser(Login login, Password password)
         {
             return new Registration(login, password);
@@ -36,9 +32,7 @@ namespace Identities.Domain.Registrations
 
         public Credential CreateCredentialBasedOnRegistration()
         {
-            return Credential.CreateCredentialBasedOnRegistration(Id.CreateCredentailId(),_login, _password);
+            return Credential.CreateCredentialBasedOnRegistration(new CredentailId(Id.Value),_login, _password);
         }
-
-        // Create user profile
     }
 }

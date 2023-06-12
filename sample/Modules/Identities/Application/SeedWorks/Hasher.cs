@@ -1,6 +1,4 @@
-﻿using Identities.Application.Registrations;
-
-namespace Identities.Application
+﻿namespace Identities.Application.SeedWorks
 {
     public sealed class Hasher : IHasher
     {

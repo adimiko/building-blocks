@@ -1,6 +1,5 @@
 ﻿using BuildingBlocks.Infrastructure;
 using BuildingBlocks.Startup.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -17,13 +16,13 @@ namespace BuildingBlocks.Startup.Modules
 
             action(moduleSettings);
 
-            var builder = ConfigureContainer(new ServiceCollection(), moduleSettings);
+            var builder = new ServiceCollection();
+
+            ConfigureContainer(builder, moduleSettings);
 
             builder.AddApplicationDependencies(moduleSettings.ApplicationLayer);
-            //TODO
-            builder.AddInfrastructureDependencies<TDbContext>(moduleSettings.InfrastructureLayer, x => x.UseInMemoryDatabase("123"));
-            
-            builder.AddMediatR(config => config.RegisterServicesFromAssembly(moduleSettings.ApplicationLayer));
+
+            builder.AddInfrastructureDependencies<TDbContext>(moduleSettings.InfrastructureLayer, moduleSettings.DbContextOptionsBuilder);
 
             IServiceProvider container = builder.BuildServiceProvider();
 
@@ -36,6 +35,6 @@ namespace BuildingBlocks.Startup.Modules
             return module;
         }
 
-        protected abstract IServiceCollection ConfigureContainer(IServiceCollection builder, TModuleSettings moduleSettings);
+        protected abstract void ConfigureContainer(IServiceCollection builder, TModuleSettings moduleSettings);
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     public class RegistrationsController : ControllerBase
     {
         private readonly IdentitiesModule _identitiesModule;
@@ -16,9 +16,15 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task Register()
+        public async Task Register([FromBody] RegisterNewUserCommand command)
         {
-            await _identitiesModule.Execute(new RegisterNewUserCommand("asdasdasd", "asdasds212323"));
+            await _identitiesModule.Execute(command);
+        }
+
+        [HttpPost]
+        public async Task Confirm([FromBody] ConfirmCommand command)
+        {
+            await _identitiesModule.Execute(command);
         }
     }
 }

@@ -30,6 +30,13 @@ namespace Identities.Domain.Registrations
             _status = RegistrationStatus.Pending;
         }
 
+        public void Confirm()
+        {
+            _status = _status.Confirmed;
+
+            Publish(new RegistrationConfirmedDomainEvent(Id));
+        }
+
         public Credential CreateCredentialBasedOnRegistration()
         {
             return Credential.CreateCredentialBasedOnRegistration(new CredentailId(Id.Value),_login, _password);

@@ -3,16 +3,16 @@
     public abstract record QueryBase<TResult> : IQueryBase<TResult>
         where TResult : DataTransferObject
     {
-        public Guid Id { get; }
+        public Guid QueryId { get; }
 
         protected QueryBase()
         {
-            Id = Guid.NewGuid();
+            QueryId = Guid.NewGuid();
         }
 
         protected QueryBase(Guid id)
         {
-            Id = id;
+            QueryId = id;
         }
     }
 }

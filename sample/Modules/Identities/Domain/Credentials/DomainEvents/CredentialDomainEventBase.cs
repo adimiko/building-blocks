@@ -2,6 +2,6 @@
 
 namespace Identities.Domain.Credentials.DomainEvents
 {
-    public abstract class CredentialDomainEventBase : DomainEvent
+    public abstract record CredentialDomainEventBase : DomainEvent
     { }
 }

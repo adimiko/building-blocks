@@ -32,7 +32,7 @@ namespace Identities.Domain.Registrations
 
         public void Confirm()
         {
-            _status = _status.Confirmed;
+            _status = RegistrationStatus.Confirmed;
 
             Publish(new RegistrationConfirmedDomainEvent(Id));
         }

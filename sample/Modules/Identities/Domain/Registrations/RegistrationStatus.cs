@@ -5,20 +5,15 @@ namespace Identities.Domain.Registrations
 {
     public sealed record RegistrationStatus : ValueObject
     {
-        private static TimeSpan _validityPeriod => TimeSpan.FromHours(1);
-
         public string Value { get; }
 
-        public DateTime ExpirationDate { get; }
+        public static RegistrationStatus Pending => new RegistrationStatus(nameof(Pending));
 
-        public static RegistrationStatus Pending => new RegistrationStatus(nameof(Pending), SystemClock.UtcNow + _validityPeriod);
+        public static RegistrationStatus Confirmed => new RegistrationStatus(nameof(Confirmed));
 
-        public RegistrationStatus Confirmed => new RegistrationStatus(nameof(Confirmed), ExpirationDate);
-
-        private RegistrationStatus(string value, DateTime expirationDate)
+        private RegistrationStatus(string value)
         {
             Value = value;
-            ExpirationDate = expirationDate;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace BuildingBlocks.Startup.Infrastructure
             where TContext : DbContext
         {
             // Data
-            services.AddDbContextPool<TContext>(optionsAction);
+            services.AddDbContextPool<TContext>(optionsAction, poolSize);
             services.AddScoped((Func<IServiceProvider, DbContext>)(sp => sp.GetRequiredService<TContext>()));
 
             services.Scan(scan => scan

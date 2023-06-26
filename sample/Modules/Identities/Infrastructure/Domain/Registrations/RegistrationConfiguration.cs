@@ -31,7 +31,6 @@ namespace Identities.Infrastructure.Domain.Registrations
             builder.OwnsOne<RegistrationStatus>("_status", s =>
             {
                 s.Property(x => x.Value);
-                s.Property(s => s.ExpirationDate);
             });
         }
     }

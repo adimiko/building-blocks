@@ -5,14 +5,14 @@ using Identities.Domain.SheredKernel.Passwords;
 
 namespace Identities.Domain.Credentials
 {
-    public sealed class Credential : AggregateRoot<CredentailId, CredentialDomainEventBase>
+    public sealed class Credential : AggregateRoot<CredentialId, CredentialDomainEventBase>
     {
         private Login _login;
 
         private Password _password;
 
         internal static Credential CreateCredentialBasedOnRegistration(
-            CredentailId id,
+            CredentialId id,
             Login login,
             Password password)
         {
@@ -20,7 +20,7 @@ namespace Identities.Domain.Credentials
         }
 
         private Credential(
-            CredentailId id,
+            CredentialId id,
             Login login,
             Password password)
             : base(id)

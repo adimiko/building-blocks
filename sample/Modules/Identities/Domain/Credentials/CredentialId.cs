@@ -2,9 +2,9 @@
 
 namespace Identities.Domain.Credentials
 {
-    public sealed record CredentailId : AggregateRootId
+    public sealed record CredentialId : AggregateRootId
     {
-        public CredentailId(Guid id)
+        public CredentialId(Guid id)
             : base(id) { }
     }
 }

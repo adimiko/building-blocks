@@ -37,9 +37,9 @@ namespace Identities.Domain.Registrations
             Publish(new RegistrationConfirmedDomainEvent(Id));
         }
 
-        public Credential CreateCredentialBasedOnRegistration()
+        public Credential CreateCredential()
         {
-            return Credential.CreateCredentialBasedOnRegistration(new CredentailId(Id.Value),_login, _password);
+            return Credential.CreateCredentialBasedOnRegistration(new CredentialId(Id.Value),_login, _password);
         }
     }
 }

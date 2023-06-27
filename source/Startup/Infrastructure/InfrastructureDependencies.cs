@@ -25,7 +25,9 @@ namespace BuildingBlocks.Startup.Infrastructure
               .FromAssemblies(infrastructureLayer)
               .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Repository")))
               .AsImplementedInterfaces()
-              .WithTransientLifetime());
+              .WithScopedLifetime());
+
+            services.AddCommandProcessingDependencies();
 
             return services;
         }

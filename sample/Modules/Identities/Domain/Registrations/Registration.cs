@@ -28,6 +28,7 @@ namespace Identities.Domain.Registrations
             _password = password;
 
             _status = RegistrationStatus.Pending;
+            IncrementVersion();
         }
 
         public void Confirm()
@@ -35,6 +36,7 @@ namespace Identities.Domain.Registrations
             _status = RegistrationStatus.Confirmed;
 
             Publish(new RegistrationConfirmedDomainEvent(Id));
+            IncrementVersion();
         }
 
         public Credential CreateCredential()

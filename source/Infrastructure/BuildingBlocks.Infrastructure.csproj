@@ -15,4 +15,10 @@
     <ProjectReference Include="..\Application\BuildingBlocks.Application.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+			<_Parameter1>BuildingBlocks.Startup</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+	
 </Project>

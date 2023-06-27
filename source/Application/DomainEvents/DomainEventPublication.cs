@@ -8,18 +8,22 @@ namespace BuildingBlocks.Application.DomainEvents
     {
         private List<Func<TDomainEvent, InternalCommandBase>> _internalCommandFactiories = new List<Func<TDomainEvent, InternalCommandBase>>();
 
-        protected void Add(Func<TDomainEvent, InternalCommandBase> createInternalCommandBasedOnDomainEvent)
+        protected void Add(Func<TDomainEvent, InternalCommandBase> internalCommandFactory)
         {
-            //cannot be null
-            ArgumentNullException.ThrowIfNull(createInternalCommandBasedOnDomainEvent, nameof(createInternalCommandBasedOnDomainEvent));
+            if (internalCommandFactory is null)
+            {
+                throw new InternalCommandFactoryCannotBeNullException();
+            }
             
-            _internalCommandFactiories.Add(createInternalCommandBasedOnDomainEvent);
+            _internalCommandFactiories.Add(internalCommandFactory);
         }
 
         internal IReadOnlyCollection<InternalCommandBase> GetInternalCommands(TDomainEvent domainEvent)
         {
-            // cannot be null
-            ArgumentNullException.ThrowIfNull(domainEvent, nameof(domainEvent));
+            if (domainEvent is null)
+            {
+                throw new DomainEventCannotBeNullException();
+            }
 
             var list = new List<InternalCommandBase>();
 

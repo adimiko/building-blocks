@@ -36,7 +36,7 @@ namespace BuildingBlocks.Domain.Entities
             _domainEvents.Add(domainEvent);
         }
 
-        internal void ClearDomainEvents() => _domainEvents.Clear();
+        public void ClearDomainEvents() => _domainEvents.Clear();
 
         protected void CheckRule(IBusinessOperationRule rule)
         {

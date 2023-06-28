@@ -1,10 +1,11 @@
-﻿using BuildingBlocks.Domain.DomainEvents;
+﻿using BuildingBlocks.Application.DomainEvents;
+using BuildingBlocks.Domain.DomainEvents;
 using BuildingBlocks.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuildingBlocks.Infrastructure.DomainEvents
 {
-    internal sealed class DomainEventsAccessor
+    internal sealed class DomainEventsAccessor : IDomainEventsAccessor
     {
         private readonly DbContext _dbContext;
 
@@ -13,7 +14,7 @@ namespace BuildingBlocks.Infrastructure.DomainEvents
             _dbContext = dbContext;
         }
 
-        public IReadOnlyCollection<IDomainEvent> GetAllDomainEvents()
+        public IReadOnlyCollection<DomainEvent> GetAllDomainEvents()
         {
             var domainEntities = _dbContext.ChangeTracker
                 .Entries<IEntity>()

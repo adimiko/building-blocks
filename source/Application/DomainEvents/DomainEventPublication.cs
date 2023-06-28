@@ -3,7 +3,7 @@ using BuildingBlocks.Domain.DomainEvents;
 
 namespace BuildingBlocks.Application.DomainEvents
 {
-    public abstract class DomainEventPublication<TDomainEvent>
+    public abstract class DomainEventPublication<TDomainEvent> : IDomainEventPublication<TDomainEvent>
         where TDomainEvent : DomainEvent
     {
         private List<Func<TDomainEvent, InternalCommandBase>> _internalCommandFactiories = new List<Func<TDomainEvent, InternalCommandBase>>();
@@ -18,7 +18,7 @@ namespace BuildingBlocks.Application.DomainEvents
             _internalCommandFactiories.Add(internalCommandFactory);
         }
 
-        internal IReadOnlyCollection<InternalCommandBase> GetInternalCommands(TDomainEvent domainEvent)
+        public IReadOnlyCollection<InternalCommandBase> GetInternalCommands(TDomainEvent domainEvent)
         {
             if (domainEvent is null)
             {

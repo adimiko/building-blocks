@@ -10,7 +10,7 @@ namespace BuildingBlocks.Startup.Infrastructure
         {
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.TryDecorate(typeof(IRequestHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));
+            services.Decorate(typeof(IRequestHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));
 
             return services;
         }

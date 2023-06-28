@@ -1,13 +1,14 @@
-﻿using BuildingBlocks.Infrastructure;
+﻿using BuildingBlocks.Application.Modules;
+using BuildingBlocks.Infrastructure;
+using BuildingBlocks.Startup.Application;
 using BuildingBlocks.Startup.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace BuildingBlocks.Startup.Modules
 {
     public abstract class ModuleStartup<TModuleSettings, TModule, TDbContext>
             where TModuleSettings : IModuleSettings, new()
-            where TModule : Application.Modules.Module, new()
+            where TModule : Module, new()
             where TDbContext : DbContextBase
     {
         public TModule Initialize(Action<TModuleSettings> action)
@@ -28,8 +29,8 @@ namespace BuildingBlocks.Startup.Modules
 
             var module = new TModule();
             
-            typeof(Application.Modules.Module)
-                .GetMethod("SetContainer", BindingFlags.NonPublic | BindingFlags.Instance)
+            typeof(Module)
+                .GetMethod("SetContainer", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                 ?.Invoke(module, new object[] { container });
 
             return module;

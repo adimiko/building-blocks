@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BuildingBlocks.Application.DomainEvents
 {
-    internal sealed class DomainEventPublisher
+    internal sealed class DomainEventPublisher : IDomainEventPublisher
     {
         private readonly IMediator _mediator;
         private readonly IServiceProvider _serviceProvider;
@@ -20,7 +20,7 @@ namespace BuildingBlocks.Application.DomainEvents
         public async Task Publish<TDomainEvent>(TDomainEvent domainEvent, CancellationToken cancellationToken)
             where TDomainEvent : DomainEvent
         {
-            var domainEventPublication = _serviceProvider.GetService<DomainEventPublication<TDomainEvent>>();
+            var domainEventPublication = _serviceProvider.GetService<IDomainEventPublication<TDomainEvent>>();
 
             if (domainEventPublication is null) 
             {

@@ -2,11 +2,11 @@
 
 namespace BuildingBlocks.Application.DomainEvents
 {
-    internal sealed class DomainEventDispacher
+    internal sealed class DomainEventDispacher : IDomainEventDispacher
     {
-        private readonly DomainEventPublisher _domainEventPublisher;
+        private readonly IDomainEventPublisher _domainEventPublisher;
 
-        public DomainEventDispacher(DomainEventPublisher domainEventPublisher)
+        public DomainEventDispacher(IDomainEventPublisher domainEventPublisher)
         {
             _domainEventPublisher = domainEventPublisher;
         }

@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Application.Commands;
+using BuildingBlocks.Domain;
 using Identities.Application.SeedWorks;
 using Identities.Domain.Registrations;
 
@@ -12,12 +13,12 @@ namespace Identities.Application.Registrations
 
         private readonly IHasher _hasher;
 
-        private readonly IRegistrationRepository _registrationRepository;
+        private readonly IRepository<Registration, RegistrationId> _registrationRepository;
 
         public RegisterNewUserCommandHandler(
             IUniqueLogin uniqueLogin,
             IHasher hasher,
-            IRegistrationRepository registrationRepository)
+            IRepository<Registration, RegistrationId> registrationRepository)
         {
             _uniqueLogin = uniqueLogin;
             _hasher = hasher;

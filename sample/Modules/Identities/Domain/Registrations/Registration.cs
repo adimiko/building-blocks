@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Domain.AggregateRoots;
+using Identities.Domain.AccountProfiles;
 using Identities.Domain.Credentials;
 using Identities.Domain.Registrations.DomainEvents;
 
@@ -40,6 +41,13 @@ namespace Identities.Domain.Registrations
         public Credential CreateCredential()
         {
             return Credential.CreateCredentialBasedOnRegistration(new CredentialId(Id.Value), _login, _password);
+        }
+
+        public AccountProfile CreateAccountProfile()
+        {
+            var nick = Nick.CreateBasedOnLogin(_login);
+
+            return AccountProfile.CreateBasedOnRegistration(new AccountProfileId(Id.Value), nick);
         }
     }
 }

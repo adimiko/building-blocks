@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using BuildingBlocks.Domain;
+using BuildingBlocks.Infrastructure.Repositories;
 
 namespace BuildingBlocks.Startup.Infrastructure
 {
@@ -26,6 +28,8 @@ namespace BuildingBlocks.Startup.Infrastructure
               .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Repository")))
               .AsImplementedInterfaces()
               .WithScopedLifetime());
+
+            services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
 
             services.AddCommandProcessingDependencies();
 

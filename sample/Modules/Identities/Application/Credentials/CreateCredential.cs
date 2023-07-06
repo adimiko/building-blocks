@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Application.InternalCommands;
+using BuildingBlocks.Domain;
 using Identities.Domain.Credentials;
 using Identities.Domain.Registrations;
 
@@ -8,13 +9,13 @@ namespace Identities.Application.Credentials
 
     internal sealed class CreateCredentialInternalCommandHandler : IInternalCommandHandler<CreateCredentialInternalCommand>
     {
-        private readonly IRegistrationRepository _registrationRepository;
+        private readonly IRepository<Registration, RegistrationId> _registrationRepository;
 
-        private readonly ICredentialRepository _credentialRepository;
+        private readonly IRepository<Credential, CredentialId> _credentialRepository;
 
         public CreateCredentialInternalCommandHandler(
-            IRegistrationRepository registrationRepository,
-            ICredentialRepository credentialRepository)
+            IRepository<Registration, RegistrationId> registrationRepository,
+            IRepository<Credential, CredentialId> credentialRepository)
         {
             _registrationRepository = registrationRepository;
             _credentialRepository = credentialRepository;

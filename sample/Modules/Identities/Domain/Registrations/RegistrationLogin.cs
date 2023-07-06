@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Domain.ValueObjects;
+using Identities.Domain.AccountProfiles;
 using Identities.Domain.Registrations.Rules;
 
 namespace Identities.Domain.Registrations

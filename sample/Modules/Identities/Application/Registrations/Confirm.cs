@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Application.Commands;
+using BuildingBlocks.Domain;
 using Identities.Domain.Registrations;
 
 namespace Identities.Application.Registrations
@@ -7,9 +8,9 @@ namespace Identities.Application.Registrations
 
     internal sealed class ConfirmCommandHandler : ICommandHandler<ConfirmCommand>
     {
-        private readonly IRegistrationRepository _registrationRepository;
+        private readonly IRepository<Registration, RegistrationId> _registrationRepository;
 
-        public ConfirmCommandHandler(IRegistrationRepository registrationRepository)
+        public ConfirmCommandHandler(IRepository<Registration, RegistrationId> registrationRepository)
         {
             _registrationRepository = registrationRepository;
         }

@@ -1,28 +1,27 @@
 ﻿using BuildingBlocks.Domain.AggregateRoots;
 using Identities.Domain.Credentials.DomainEvents;
-using Identities.Domain.SheredKernel.Logins;
-using Identities.Domain.SheredKernel.Passwords;
+using Identities.Domain.Registrations;
 
 namespace Identities.Domain.Credentials
 {
     public sealed class Credential : AggregateRoot<CredentialId, CredentialDomainEventBase>
     {
-        private Login _login;
+        private RegistrationLogin _login; //TODO change registrationLogin name and password
 
-        private Password _password;
+        private RegistrationPassword _password;
 
         internal static Credential CreateCredentialBasedOnRegistration(
             CredentialId id,
-            Login login,
-            Password password)
+            RegistrationLogin login,
+            RegistrationPassword password)
         {
             return new Credential(id, login, password);
         }
 
         private Credential(
             CredentialId id,
-            Login login,
-            Password password)
+            RegistrationLogin login,
+            RegistrationPassword password)
             : base(id)
         {
             CheckNulls(login, password);

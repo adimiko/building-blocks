@@ -1,6 +1,7 @@
 ﻿using BuildingBlocks.Domain.BusinessRules;
+using Identities.Domain.Registrations;
 
-namespace Identities.Domain.SheredKernel.Logins.Rules
+namespace Identities.Domain.Registrations.Rules
 {
     public sealed class LoginMustBeUniqueRule : IBusinessDataRule
     {

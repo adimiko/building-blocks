@@ -4,8 +4,8 @@ using BuildingBlocks.Domain.DomainEvents;
 namespace BuildingBlocks.Application.DomainEvents
 {
     internal interface IDomainEventPublication<TDomainEvent>
-        where TDomainEvent : DomainEvent
+        where TDomainEvent : IDomainEvent
     {
-        IReadOnlyCollection<InternalCommandBase> GetInternalCommands(TDomainEvent domainEvent);
+        IReadOnlyCollection<InternalCommandBase> GetInternalCommands(object domainEvent);
     }
 }

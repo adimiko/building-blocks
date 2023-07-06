@@ -1,18 +1,19 @@
 ﻿using BuildingBlocks.Domain.AggregateRoots;
+using Identities.Domain.Credentials;
 using Identities.Domain.Registrations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Identities.Infrastructure.Domain.Registrations
+namespace Identities.Infrastructure.Domain.Credentials
 {
-    internal class RegistrationConfiguration : IEntityTypeConfiguration<Registration>
+    internal sealed class CredentialConfiguration : IEntityTypeConfiguration<Credential>
     {
-        public void Configure(EntityTypeBuilder<Registration> builder)
+        public void Configure(EntityTypeBuilder<Credential> builder)
         {
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
-            .HasConversion(x => x.Value, x => new RegistrationId(x));
+            .HasConversion(x => x.Value, x => new CredentialId(x));
 
             builder.Ignore(x => x.DomainEvents);
 
@@ -20,16 +21,11 @@ namespace Identities.Infrastructure.Domain.Registrations
             .HasConversion(x => x.Value, x => AggregateRootVersion.Restore(x))
             .IsConcurrencyToken();
 
-            //TODO use private constructor with arguments
             builder.Property<RegistrationLogin>("_login")
                 .HasConversion(x => x.Value, x => RegistrationLogin.Restore(x));
 
-            builder.Property<RegistrationPassword>("_password").HasConversion(x => x.Value, x => RegistrationPassword.Restore(x));
-
-            builder.OwnsOne<RegistrationStatus>("_status", s =>
-            {
-                s.Property(x => x.Value);
-            });
+            builder.Property<RegistrationPassword>("_password")
+                .HasConversion(x => x.Value, x => RegistrationPassword.Restore(x));
         }
     }
 }

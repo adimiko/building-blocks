@@ -1,4 +1,4 @@
-﻿namespace Identities.Domain.SheredKernel.Logins
+﻿namespace Identities.Domain.Registrations
 {
     public interface IUniqueLogin
     {

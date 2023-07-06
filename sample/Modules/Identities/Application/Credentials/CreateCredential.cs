@@ -4,7 +4,7 @@ using Identities.Domain.Registrations;
 
 namespace Identities.Application.Credentials
 {
-    internal sealed record CreateCredentialInternalCommand(RegistrationId Id)  : InternalCommandBase;
+    internal sealed record CreateCredentialInternalCommand(RegistrationId Id) : InternalCommandBase;
 
     internal sealed class CreateCredentialInternalCommandHandler : IInternalCommandHandler<CreateCredentialInternalCommand>
     {

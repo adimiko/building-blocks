@@ -17,7 +17,7 @@ namespace BuildingBlocks.Startup.Application
 
             services.Scan(scan => scan
               .FromAssemblies(applicationLayer)
-              .AddClasses(classes => classes.AssignableTo(typeof(DomainEventPublication<>)))
+              .AddClasses(c => c.AssignableTo(typeof(IDomainEventPublication<>)))
               .AsImplementedInterfaces()
               .WithTransientLifetime());
 

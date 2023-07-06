@@ -1,6 +1,5 @@
 ﻿using BuildingBlocks.Domain.DomainEvents;
 using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace BuildingBlocks.Application.DomainEvents
 {
@@ -20,7 +19,11 @@ namespace BuildingBlocks.Application.DomainEvents
         public async Task Publish<TDomainEvent>(TDomainEvent domainEvent, CancellationToken cancellationToken)
             where TDomainEvent : DomainEvent
         {
-            var domainEventPublication = _serviceProvider.GetService<IDomainEventPublication<TDomainEvent>>();
+            var domainEventType = domainEvent.GetType();
+
+            var domainEventPublicationType = typeof(IDomainEventPublication<>).MakeGenericType(domainEventType);
+
+            dynamic? domainEventPublication = _serviceProvider.GetService(domainEventPublicationType);
 
             if (domainEventPublication is null) 
             {
@@ -32,7 +35,7 @@ namespace BuildingBlocks.Application.DomainEvents
             foreach (var internalCommand in internalCommands) 
             {
                 await _mediator.Send(internalCommand, cancellationToken);
-            }
+            } 
         }
     }
 }

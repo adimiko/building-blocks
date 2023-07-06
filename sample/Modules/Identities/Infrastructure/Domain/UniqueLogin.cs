@@ -1,4 +1,4 @@
-﻿using Identities.Domain.SheredKernel.Logins;
+﻿using Identities.Domain.Registrations;
 
 namespace Identities.Infrastructure.Domain
 {

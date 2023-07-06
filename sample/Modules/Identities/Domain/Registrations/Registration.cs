@@ -1,25 +1,23 @@
 ﻿using BuildingBlocks.Domain.AggregateRoots;
 using Identities.Domain.Credentials;
 using Identities.Domain.Registrations.DomainEvents;
-using Identities.Domain.SheredKernel.Logins;
-using Identities.Domain.SheredKernel.Passwords;
 
 namespace Identities.Domain.Registrations
 {
     public sealed class Registration : AggregateRoot<RegistrationId, RegistrationDomainEventBase>
     {
-        private Login _login;
+        private RegistrationLogin _login;
 
-        private Password _password;
+        private RegistrationPassword _password;
 
         private RegistrationStatus _status;
 
-        public static Registration RegisterNewUser(Login login, Password password)
+        public static Registration RegisterNewUser(RegistrationLogin login, RegistrationPassword password)
         {
             return new Registration(login, password);
         }
 
-        private Registration(Login login, Password password)
+        private Registration(RegistrationLogin login, RegistrationPassword password)
             :base(new RegistrationId(Guid.NewGuid()))
         {
             CheckNulls(login, password);
@@ -41,7 +39,7 @@ namespace Identities.Domain.Registrations
 
         public Credential CreateCredential()
         {
-            return Credential.CreateCredentialBasedOnRegistration(new CredentialId(Id.Value),_login, _password);
+            return Credential.CreateCredentialBasedOnRegistration(new CredentialId(Id.Value), _login, _password);
         }
     }
 }

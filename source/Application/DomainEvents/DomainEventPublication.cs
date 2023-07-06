@@ -18,8 +18,10 @@ namespace BuildingBlocks.Application.DomainEvents
             _internalCommandFactiories.Add(internalCommandFactory);
         }
 
-        public IReadOnlyCollection<InternalCommandBase> GetInternalCommands(TDomainEvent domainEvent)
+        public IReadOnlyCollection<InternalCommandBase> GetInternalCommands(object @event)
         {
+            var domainEvent = @event as TDomainEvent;
+
             if (domainEvent is null)
             {
                 throw new DomainEventCannotBeNullException();

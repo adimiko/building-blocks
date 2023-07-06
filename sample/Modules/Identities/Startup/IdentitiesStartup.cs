@@ -1,7 +1,7 @@
 ﻿using BuildingBlocks.Startup.Modules;
 using Identities.Application.Contracts;
 using Identities.Application.SeedWorks;
-using Identities.Domain.SheredKernel.Logins;
+using Identities.Domain.Registrations;
 using Identities.Infrastructure;
 using Identities.Infrastructure.Domain;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,8 +1,6 @@
 ﻿using BuildingBlocks.Application.Commands;
 using Identities.Application.SeedWorks;
 using Identities.Domain.Registrations;
-using Identities.Domain.SheredKernel.Logins;
-using Identities.Domain.SheredKernel.Passwords;
 
 namespace Identities.Application.Registrations
 {
@@ -28,8 +26,8 @@ namespace Identities.Application.Registrations
 
         public async Task Handle(RegisterNewUserCommand command, CancellationToken cancellationToken)
         {
-            var login = Login.Of(command.Login, _uniqueLogin);
-            var password = Password.Of(command.Password, plainPassword => _hasher.CalculateHash(plainPassword));
+            var login = RegistrationLogin.Of(command.Login, _uniqueLogin);
+            var password = RegistrationPassword.Of(command.Password, plainPassword => _hasher.CalculateHash(plainPassword));
 
             var registration = Registration.RegisterNewUser(login, password);
 

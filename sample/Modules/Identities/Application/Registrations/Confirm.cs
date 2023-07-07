@@ -1,5 +1,6 @@
 ﻿using BuildingBlocks.Application.Commands;
 using BuildingBlocks.Domain;
+using BuildingBlocks.Domain.DomainServices;
 using Identities.Domain.Registrations;
 
 namespace Identities.Application.Registrations
@@ -10,15 +11,21 @@ namespace Identities.Application.Registrations
     {
         private readonly IRepository<Registration, RegistrationId> _registrationRepository;
 
-        public ConfirmCommandHandler(IRepository<Registration, RegistrationId> registrationRepository)
+        private readonly AggregateRootExistsCheckerDomainService _aggregateRootExistsCheckerDomainService;
+
+        public ConfirmCommandHandler(
+            IRepository<Registration, RegistrationId> registrationRepository,
+            AggregateRootExistsCheckerDomainService aggregateRootExistsCheckerDomainService)
         {
             _registrationRepository = registrationRepository;
+            _aggregateRootExistsCheckerDomainService = aggregateRootExistsCheckerDomainService;
         }
 
         public async Task Handle(ConfirmCommand command, CancellationToken cancellationToken)
         {
-            //TODO domain service check entity exists
             var registration = await _registrationRepository.Get(new RegistrationId(command.RegistrationId));
+
+            _aggregateRootExistsCheckerDomainService.Check(registration);
 
             registration.Confirm();
         }

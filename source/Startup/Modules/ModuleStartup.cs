@@ -1,6 +1,7 @@
 ﻿using BuildingBlocks.Application.Modules;
 using BuildingBlocks.Infrastructure;
 using BuildingBlocks.Startup.Application;
+using BuildingBlocks.Startup.Domain;
 using BuildingBlocks.Startup.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +21,8 @@ namespace BuildingBlocks.Startup.Modules
             var builder = new ServiceCollection();
 
             ConfigureContainer(builder, moduleSettings);
+
+            builder.AddDomainDependencies();
 
             builder.AddApplicationDependencies(moduleSettings.ApplicationLayer);
 

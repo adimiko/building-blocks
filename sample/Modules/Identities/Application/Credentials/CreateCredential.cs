@@ -1,5 +1,6 @@
 ﻿using BuildingBlocks.Application.InternalCommands;
 using BuildingBlocks.Domain;
+using BuildingBlocks.Domain.DomainServices;
 using Identities.Domain.Credentials;
 using Identities.Domain.Registrations;
 
@@ -13,18 +14,23 @@ namespace Identities.Application.Credentials
 
         private readonly IRepository<Credential, CredentialId> _credentialRepository;
 
+        private readonly AggregateRootExistsCheckerDomainService _aggregateRootExistsCheckerDomainService;
+
         public CreateCredentialInternalCommandHandler(
             IRepository<Registration, RegistrationId> registrationRepository,
-            IRepository<Credential, CredentialId> credentialRepository)
+            IRepository<Credential, CredentialId> credentialRepository,
+            AggregateRootExistsCheckerDomainService aggregateRootExistsCheckerDomainService)
         {
             _registrationRepository = registrationRepository;
             _credentialRepository = credentialRepository;
+            _aggregateRootExistsCheckerDomainService = aggregateRootExistsCheckerDomainService;
         }
 
         public async Task Handle(CreateCredentialInternalCommand internalCommand, CancellationToken cancellationToken)
         {
-            //TODO domain service check entity exists
             var registration = await _registrationRepository.Get(internalCommand.Id);
+
+            _aggregateRootExistsCheckerDomainService.Check(registration);
 
             var credential = registration.CreateCredential();
 

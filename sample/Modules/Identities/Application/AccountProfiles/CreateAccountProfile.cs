@@ -1,6 +1,5 @@
 ﻿using BuildingBlocks.Application.InternalCommands;
 using BuildingBlocks.Domain;
-using BuildingBlocks.Domain.DomainServices;
 using Identities.Domain.AccountProfiles;
 using Identities.Domain.Registrations;
 
@@ -14,25 +13,26 @@ namespace Identities.Application.AccountProfiles
 
         private readonly IRepository<AccountProfile, AccountProfileId> _accountProfileRepository;
 
-        private readonly AggregateRootExistsCheckerDomainService _aggregateRootExistsCheckerDomainService;
-
         public CreateAccountProfileCommandHandler(
             IRepository<Registration, RegistrationId> registrationRepository,
-            IRepository<AccountProfile, AccountProfileId> accountProfileRepository,
-            AggregateRootExistsCheckerDomainService aggregateRootExistsCheckerDomainService) 
+            IRepository<AccountProfile, AccountProfileId> accountProfileRepository) 
         { 
             _registrationRepository = registrationRepository;
             _accountProfileRepository = accountProfileRepository;
-            _aggregateRootExistsCheckerDomainService = aggregateRootExistsCheckerDomainService;
         }
 
-        public async Task Handle(CreateAccountProfileInternalCommand command, CancellationToken cancellationToken)
+        public async Task Handle(CreateAccountProfileInternalCommand internalCommand, CancellationToken cancellationToken)
         {
-            var registration = await _registrationRepository.Get(command.RegistrationId);
+            var accountProfile = await _accountProfileRepository.Get(new AccountProfileId(internalCommand.RegistrationId));
 
-            _aggregateRootExistsCheckerDomainService.Check(registration);
+            if (accountProfile is not null)
+            {
+                return;
+            }
 
-            var accountProfile = registration.CreateAccountProfile();
+            var registration = await _registrationRepository.Get(internalCommand.RegistrationId);
+
+            accountProfile = registration.CreateAccountProfile();
 
             await _accountProfileRepository.Add(accountProfile);
         }

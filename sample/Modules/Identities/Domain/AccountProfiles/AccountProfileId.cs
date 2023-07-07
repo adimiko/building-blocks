@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Domain.AggregateRoots;
+using Identities.Domain.Registrations;
 
 namespace Identities.Domain.AccountProfiles
 {
@@ -6,5 +7,8 @@ namespace Identities.Domain.AccountProfiles
     {
         public AccountProfileId(Guid id)
             : base(id) { }
+
+        public AccountProfileId(RegistrationId registrationId)
+            : base(registrationId.Value) { }
     }
 }

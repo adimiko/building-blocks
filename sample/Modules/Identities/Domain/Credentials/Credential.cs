@@ -28,6 +28,8 @@ namespace Identities.Domain.Credentials
 
             _login = login;
             _password = password;
+
+            IncrementVersion();
         }
     }
 }

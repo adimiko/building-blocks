@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Domain.AggregateRoots;
+using BuildingBlocks.Infrastructure.AggregateRoots;
 using Identities.Domain.Credentials;
 using Identities.Domain.Registrations;
 using Microsoft.EntityFrameworkCore;
@@ -6,16 +7,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Identities.Infrastructure.Domain.Credentials
 {
-    internal sealed class CredentialConfiguration : IEntityTypeConfiguration<Credential>
+    internal sealed class CredentialConfiguration : AggregateRootConfiguration<Credential>
     {
-        public void Configure(EntityTypeBuilder<Credential> builder)
+        public override void ConfigureAggregateRoot(EntityTypeBuilder<Credential> builder)
         {
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id)
             .HasConversion(x => x.Value, x => new CredentialId(x));
-
-            builder.Ignore(x => x.DomainEvents);
 
             builder.Property(x => x.Version)
             .HasConversion(x => x.Value, x => AggregateRootVersion.Restore(x))

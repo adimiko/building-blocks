@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Domain.AggregateRoots;
+using Identities.Domain.Registrations;
 
 namespace Identities.Domain.Credentials
 {
@@ -6,5 +7,8 @@ namespace Identities.Domain.Credentials
     {
         public CredentialId(Guid id)
             : base(id) { }
+
+        public CredentialId(RegistrationId registrationId)
+            : base(registrationId.Value) { }
     }
 }

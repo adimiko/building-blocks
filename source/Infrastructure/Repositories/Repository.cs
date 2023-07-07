@@ -22,6 +22,8 @@ namespace BuildingBlocks.Infrastructure.Repositories
 
         public Task<TAggregateRoot?> Get(TAggregateRootId id)
         {
+            //TODO Compiled Queries 
+            // List with compiled queries for AggregateRoot type
             return _aggregateRoots.FindAsync(id).AsTask();
         }
     }

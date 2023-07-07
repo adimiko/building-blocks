@@ -1,4 +1,5 @@
 ﻿using BuildingBlocks.Application.DomainEvents;
+using BuildingBlocks.Application.InternalCommands;
 using BuildingBlocks.Infrastructure.DomainEvents;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -14,6 +15,8 @@ namespace BuildingBlocks.Startup.Application
             services.AddTransient<IDomainEventDispacher, DomainEventDispacher>();
             services.AddTransient<IDomainEventPublisher, DomainEventPublisher>();
             services.AddTransient<IDomainEventsAccessor, DomainEventsAccessor>();
+
+            services.Decorate(typeof(IInternalCommandHandler<>), typeof(InternalCommandHandlerDecoratorWithDomainEventDispacher<>));
 
             services.Scan(scan => scan
               .FromAssemblies(applicationLayer)

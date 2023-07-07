@@ -2,15 +2,15 @@
 
 namespace BuildingBlocks.Domain.DomainEvents
 {
-    public abstract class DomainEvent : IDomainEvent
+    public abstract record DomainEvent : IDomainEvent
     {
-        public Guid Id { get; }
+        public Guid DomainEventId { get; }
 
         public DateTime OccurrenceOn { get; }
 
         public DomainEvent()
         {
-            Id = Guid.NewGuid();
+            DomainEventId = Guid.NewGuid();
             OccurrenceOn = SystemClock.UtcNow;
         }
     }

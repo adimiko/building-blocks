@@ -4,7 +4,14 @@ using BuildingBlocks.Domain.ValueObjects;
 
 namespace BuildingBlocks.Domain.Entities
 {
-    public abstract class Entity<TEntityId, TDomainEvent> : IEntity
+    public abstract class Entity
+    {
+        internal abstract IReadOnlyCollection<DomainEvent> DomainEvents { get; }
+
+        internal abstract void ClearDomainEvents();
+    }
+
+    public abstract class Entity<TEntityId, TDomainEvent> : Entity, IEntity
         where TEntityId : EntityId
         where TDomainEvent : DomainEvent
     {
@@ -12,7 +19,7 @@ namespace BuildingBlocks.Domain.Entities
 
         private List<TDomainEvent> _domainEvents = new List<TDomainEvent>();
 
-        public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+        internal override IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
         protected Entity() { }
 
@@ -36,7 +43,7 @@ namespace BuildingBlocks.Domain.Entities
             _domainEvents.Add(domainEvent);
         }
 
-        internal void ClearDomainEvents() => _domainEvents.Clear();
+        internal override void ClearDomainEvents() => _domainEvents.Clear();
 
         protected void CheckRule(IBusinessOperationRule rule)
         {

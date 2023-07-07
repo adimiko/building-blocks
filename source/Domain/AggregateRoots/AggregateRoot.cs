@@ -11,6 +11,11 @@ namespace BuildingBlocks.Domain.AggregateRoots
 
         public AggregateRootVersion Version { get; private set; } = AggregateRootVersion.Init();
 
+        protected AggregateRoot() { }
+
+        protected AggregateRoot(TAggregateRootId id)
+            :base(id) { }
+
         protected void IncrementVersion()
         {
             CheckIncrementing();

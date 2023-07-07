@@ -4,6 +4,6 @@ namespace BuildingBlocks.Application.Commands
 {
     public interface ICommandBase : IRequest
     {
-        Guid Id { get; }
+        Guid CommandId { get; }
     }
 }

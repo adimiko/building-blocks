@@ -2,7 +2,7 @@
 {
     public interface IDomainEvent
     {
-        public Guid Id { get; }
+        public Guid DomainEventId { get; }
 
         public DateTime OccurrenceOn { get; }
     }

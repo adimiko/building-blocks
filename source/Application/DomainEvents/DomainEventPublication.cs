@@ -8,7 +8,7 @@ namespace BuildingBlocks.Application.DomainEvents
     {
         private List<Func<TDomainEvent, InternalCommandBase>> _internalCommandFactiories = new List<Func<TDomainEvent, InternalCommandBase>>();
 
-        protected void Add(Func<TDomainEvent, InternalCommandBase> internalCommandFactory)
+        protected void Execute(Func<TDomainEvent, InternalCommandBase> internalCommandFactory)
         {
             if (internalCommandFactory is null)
             {

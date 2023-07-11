@@ -9,8 +9,8 @@ namespace Identities.Application.Registrations.DomainEvents
     {
         public RegistrationConfirmedDomainEventPublication()
         {
-            Add(e => new CreateCredentialInternalCommand(e.RegistrationId));
-            Add(e => new CreateAccountProfileInternalCommand(e.RegistrationId));
+            Execute(e => new CreateCredentialInternalCommand(e.RegistrationId));
+            Execute(e => new CreateAccountProfileInternalCommand(e.RegistrationId));
         }
     }
 }

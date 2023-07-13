@@ -1,10 +1,13 @@
 ﻿using System.Reflection;
+using BuildingBlocks.Infrastructure.IntegrationEvents;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuildingBlocks.Infrastructure
 {
     public abstract class DbContextBase : DbContext
     {
+        internal DbSet<OutboxMessage> OutboxMessages { get; set; }
+
         public DbContextBase(DbContextOptions options)
             : base(options)
         {

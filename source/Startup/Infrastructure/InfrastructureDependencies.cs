@@ -7,6 +7,10 @@ using System.Linq;
 using System.Reflection;
 using BuildingBlocks.Domain;
 using BuildingBlocks.Infrastructure.Repositories;
+using BuildingBlocks.Infrastructure;
+using BuildingBlocks.Infrastructure.IntegrationEvents;
+using BuildingBlocks.Application.DomainEvents;
+using BuildingBlocks.Infrastructure.DomainEvents;
 
 namespace BuildingBlocks.Startup.Infrastructure
 {
@@ -16,12 +20,14 @@ namespace BuildingBlocks.Startup.Infrastructure
             this IServiceCollection services,
             Assembly infrastructureLayer,
             Action<DbContextOptionsBuilder> optionsAction,
-            int poolSize = DbContextPool<DbContext>.DefaultPoolSize)
-            where TContext : DbContext
+            int poolSize = 1024)
+            where TContext : DbContextBase
         {
             // Data
             services.AddDbContextPool<TContext>(optionsAction, poolSize);
+            
             services.AddScoped((Func<IServiceProvider, DbContext>)(sp => sp.GetRequiredService<TContext>()));
+            services.AddScoped((Func<IServiceProvider, DbContextBase>)(sp => sp.GetRequiredService<TContext>()));
 
             services.Scan(scan => scan
               .FromAssemblies(infrastructureLayer)
@@ -30,6 +36,11 @@ namespace BuildingBlocks.Startup.Infrastructure
               .WithScopedLifetime());
 
             services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
+
+            services.AddScoped<IOutbox, Outbox>();
+            services.AddSingleton(new OutboxMessagesFactory(infrastructureLayer));
+
+            services.Decorate<IDomainEventDispacher, DomainEventDispacherDecoratedByIntegrationEventsMapper>();
 
             services.AddCommandProcessingDependencies();
 

@@ -2,7 +2,8 @@
 
 namespace BuildingBlocks.Infrastructure.IntegrationEvents
 {
-    public abstract record IntegrationEvent<TDomainEvent> where TDomainEvent : DomainEvent
+    public abstract record IntegrationEvent<TDomainEvent> : IIntegrationEvent
+        where TDomainEvent : DomainEvent
     { 
         public Guid IntegrationEventId { get; }
 
